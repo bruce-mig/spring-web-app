@@ -5,7 +5,7 @@
         <title>List Todos Page</title>
     </head>
 	<body>
-		<div>
+		<div class="container">
 			<h1>Your Todos</h1>
 			<table class="table">
 				<thead>
