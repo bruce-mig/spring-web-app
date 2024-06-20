@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.time.LocalDate;
 import java.util.List;
 
-@Controller
+//@Controller
 @SessionAttributes("name")
 public class TodoController {
 
@@ -50,7 +50,7 @@ public class TodoController {
         }
         String username = getLoggedInUsername();
         todoService.addTodo(username, todo.getDescription(),
-               todo.getTargetDate(), false);
+               todo.getTargetDate(), todo.getDone());
         return "redirect:list-todos";
     }
 
