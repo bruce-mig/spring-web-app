@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 @Service
@@ -33,7 +34,8 @@ public class TodoService {
 
     public Todo findById(int id) {
         Predicate<? super Todo> predicate = todo -> todo.getId() == id;
-        return todos.stream().filter(predicate).findFirst().get();
+        return todos.stream().filter(predicate).findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Todo not found with id: " + id));
     }
 
     public void updateTodo(Todo todo) {
