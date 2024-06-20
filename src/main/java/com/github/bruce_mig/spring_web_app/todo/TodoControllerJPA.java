@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 @SessionAttributes("name")
 public class TodoControllerJPA {
     private final TodoRepository todoRepository;
 
-    public TodoControllerJPA(TodoService todoService, TodoRepository todoRepository) {
+    public TodoControllerJPA(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
@@ -61,7 +62,8 @@ public class TodoControllerJPA {
 
     @RequestMapping(value="update-todo", method = RequestMethod.GET)
     public String showUpdateTodoPage(@RequestParam int id, ModelMap model){
-        Todo todo = todoRepository.findById(id).get();
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Todo not found with id: " + id));
         model.addAttribute("todo", todo);
         return "todo";
     }
